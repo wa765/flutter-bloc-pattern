@@ -52,6 +52,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final counterBloc = CounterBloc();
 
+  // close
+  @override
+  void dispose() {
+    counterBloc.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     print("State Management Bloc");
@@ -91,6 +98,13 @@ class _MyHomePageState extends State<MyHomePage> {
               initialData: 0,
               stream: counterBloc.counterStream,
               builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                // best practice
+                // cek apakah snapshot ada datanya
+                if (snapshot.hasData) {}
+                // jika data snapshot error
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                }
                 return Text(
                   '${snapshot.data}',
                   style: Theme.of(context).textTheme.headline4,

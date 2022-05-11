@@ -47,4 +47,9 @@ class CounterBloc {
       counterSink.add(counter);
     });
   }
+  // pastikan diclose setelah membuat controller untuk mengurangi beban memori aplikasi saat berjalan
+  void dispose() {
+    _stateStreamController.close();
+    _eventStreamController.close();
+  }
 }
